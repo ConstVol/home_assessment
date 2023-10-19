@@ -1,6 +1,6 @@
-class Api::WorkingHoursController < ApplicationController
+class Api::WorkingHoursController < Api::BaseController
   def index
-    render json: working_hours, serializer: WorkingHourSerializer
+    send_response working_hours, :ok, WorkingHourSerializer
   end
 
   private

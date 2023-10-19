@@ -4,21 +4,103 @@ info:
   title: API V1
   version: v1
 paths:
+  "/api/doctors/{doctor_id}/appointments":
+    parameters:
+      - name: doctor_id
+        in: path
+        description: doctor_id
+        required: true
+        schema:
+          type: string
+      - name: start_date
+        in: query
+        description: start_date
+        required: false
+        schema:
+          type: string
+      - name: end_date
+        in: query
+        description: end_date
+        required: false
+        schema:
+          type: string
+    get:
+      summary: list appointments
+      responses:
+        '200':
+          description: successful
+    post:
+      summary: Creates a appointment
+      parameters: []
+      responses:
+        '201':
+          description: appointment created
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                doctor_id:
+                  type: integer
+                user_id:
+                  type: integer
+                date:
+                  date: datatime
+              required:
+                - doctor_id
+                - user_id
+                - date
+  "/api/doctors/{doctor_id}/appointments/{id}":
+    parameters:
+      - name: doctor_id
+        in: path
+        description: doctor_id
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        description: appointment_id
+        required: true
+        schema:
+          type: string
+    put:
+      summary: Updates a appointment
+      parameters: []
+      responses:
+        '201':
+          description: appointment updated
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                doctor_id:
+                  type: integer
+                user_id:
+                  type: integer
+    delete:
+      summary: Deletes a appointment
+      responses:
+        '201':
+          description: appointment deleted
   "/api/doctors/{doctor_id}/working_hours":
     parameters:
-    - name: doctor_id
-      in: path
-      description: doctor_id
-      required: true
-      schema:
-        type: string
+      - name: doctor_id
+        in: path
+        description: doctor_id
+        required: true
+        schema:
+          type: string
     get:
       summary: list working_hours
       responses:
         '200':
           description: successful
 servers:
-- url: http://{defaultHost}
-  variables:
-    defaultHost:
-      default: localhost:3000
+  - url: http://{defaultHost}
+    variables:
+      defaultHost:
+        default: localhost:3000
