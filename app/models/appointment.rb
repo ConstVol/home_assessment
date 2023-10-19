@@ -4,7 +4,7 @@ class Appointment < ApplicationRecord
 
   enum status: {
     booked: 'booked',
-    canceled: 'canceled',
+    canceled: 'canceled'
   }
   validates :date, presence: true
   validate :appointment_date_in_future, if: -> { status == Appointment.statuses[:booked] }
@@ -12,6 +12,6 @@ class Appointment < ApplicationRecord
   private
 
   def appointment_date_in_future
-    errors.add(:date, 'Must be in the future') if date < Date.today
+    errors.add(:date, 'Must be in the future') if date.present? && date < Date.today
   end
 end
